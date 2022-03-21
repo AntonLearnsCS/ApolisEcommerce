@@ -36,19 +36,14 @@
         <!-- https://stackoverflow.com/questions/6153587/how-can-i-decrease-the-size-of-ratingbar-->
         <RatingBar
             android:id="@+id/rb_summary_order_item"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="100dp"
+            android:layout_height="20dp"
             android:isIndicator="true"
             android:rating="2.5"
-            android:scaleX=".5"
-            android:scaleY=".5"
-            android:transformPivotX="0dp"
-            android:transformPivotY="0dp"
+            style="@style/Widget.AppCompat.RatingBar.Small"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent=".5"
             app:layout_constraintStart_toEndOf="@id/tv_summary_item_title"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent=".3"
             tools:rating="2.5" />
 
         <TextView
@@ -72,6 +67,7 @@
         <Button
             android:id="@+id/btn_summary_add_to_cart"
             android:layout_width="match_parent"
+            android:visibility="invisible"
             android:layout_height="0dp"
             android:gravity="center"
             android:text="@string/add_to_cart"

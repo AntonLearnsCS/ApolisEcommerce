@@ -5,4 +5,6 @@
     <dimen name="small_text_size">20sp</dimen>
     <dimen name="text_size_large">40sp</dimen>
     <dimen name="common_padding">16dp</dimen>
+    <dimen name="medium_text_size">25sp</dimen>
+    <dimen name="small_padding">10dp</dimen>
 </resources>

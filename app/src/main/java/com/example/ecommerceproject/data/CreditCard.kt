@@ -5,6 +5,6 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class CreditCard(
-    @PrimaryKey(autoGenerate = true)
-    val id : Int,
+    @PrimaryKey
+    val id : Int = 1,
     val creditCard : String)

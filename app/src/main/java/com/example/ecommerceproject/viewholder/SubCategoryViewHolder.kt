@@ -30,7 +30,7 @@ private var currentQuantity = 0
             tvOrderItemDetail.text = product.description
             tvOrderItemPrice.text = product.price
             Log.i("tag", "Rating: ${product.average_rating}")
-            rbOrderItem.rating = product.average_rating.toFloat()
+            //rbOrderItem.rating = product.average_rating.toFloat()
         }
 
         binding.btnOrderPlus.setOnClickListener {

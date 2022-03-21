@@ -6,43 +6,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activities.checkout.PaymentFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <RadioGroup
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/rg_payment"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <RadioButton
-            android:id="@+id/rb_visa"
-            android:text="VISA"
-            android:padding="@dimen/common_padding"
-            android:textSize="@dimen/text_size_large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <RadioButton
-            android:id="@+id/rb_mastercard"
-            android:text="MASTERCARD"
-            android:padding="@dimen/common_padding"
-            android:textSize="@dimen/text_size_large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <RadioButton
-            android:id="@+id/rb_chase"
-            android:text="CHASE"
-            android:padding="@dimen/common_padding"
-            android:textSize="@dimen/text_size_large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <RadioButton
-            android:id="@+id/rb_duetsche"
-            android:text="DUETSCHE"
-            android:padding="@dimen/common_padding"
-            android:textSize="@dimen/text_size_large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
     </RadioGroup>
 
 <!--    <Button

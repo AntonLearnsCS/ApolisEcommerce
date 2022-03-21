@@ -1,6 +1,7 @@
 package com.example.ecommerceproject.activities.checkout
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,42 +35,30 @@ class DeliveryFragment : Fragment() {
         binding.btnAddAddress.setOnClickListener {
             addressDialog()
         }
-        //TODO: Make sure user selects an address
-        binding.rgAddresses.setOnClickListener {
-            if (binding.rgAddresses.getCheckedRadioButtonId() == -1) {
-                // no radio buttons are checked
-                Toast.makeText(binding.root.context, "Please select an address", Toast.LENGTH_LONG)
-                    .show()
-            } else {
-                // get selected radio button from radioGroup
-
-                // get selected radio button from radioGroup
-                val selectedId: Int = binding.rgAddresses.getCheckedRadioButtonId()
-                // find the radiobutton by returned id
-                // find the radiobutton by returned id
-                val selectedRadioButton =
-                    binding.rgAddresses.findViewById(selectedId) as RadioButton
-
-                //will only save one address at a time
-                EcommerceDatabase.getInstance(binding.root.context).ecommerceDao.saveCheckoutAddress(
-                    selectedRadioButton.tag as CurrentAddress
-                )
-                // one of the radio buttons is checked
-            }
-        }
-        // Inflate the layout for this fragment
         return binding.root
     }
 
     //source: https://www.geeksforgeeks.org/dynamic-radiobutton-in-kotlin/
     private fun showAddresses() {
+        binding.rgAddresses.removeAllViews()
         val listOfAddresses: List<Address> =
             EcommerceDatabase.getInstance(binding.root.context).ecommerceDao.getAddresses(userId.toInt())
+        var counter = 1
         for (element in listOfAddresses) {
             val radioButton = RadioButton(binding.root.context)
-            radioButton.tag = element
+            radioButton.tag = CurrentAddress(addressPrimaryKey = element.addressPrimaryKey, user_id = element.user_id, addressTitle = element.addressTitle,
+            addressText = element.addressText)
             val text = "${element.addressTitle}\n${element.addressText}"
             radioButton.text = text
+            radioButton.id = counter
+            counter++
+            radioButton.setOnClickListener {
+                Log.i("tagDelivery","payment clicked ${element}")
+
+                EcommerceDatabase.getInstance(binding.root.context).ecommerceDao.saveCheckoutAddress(
+                    CurrentAddress(0, userId.toInt(),element.addressTitle,element.addressText)
+                )
+            }
             radioButton.layoutParams = LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT

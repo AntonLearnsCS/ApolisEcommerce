@@ -22,11 +22,12 @@ class OrdersViewHolder(val binding : OrdersViewHolderBinding) : RecyclerView.Vie
                 .error(R.drawable.phone_place_holder)
                 .into(binding.ivOrderItemImage)
 
+            tvOrderItemCount.text = product.quantity.toString()
             tvOrderItemTitle.text = product.product_name
             tvOrderItemDetail.text = product.description
             tvOrderItemPrice.text = product.price
             Log.i("tag", "Rating: ${product.average_rating}")
-            rbPastOrderItem.rating = product.average_rating.toFloat()
+            //rbPastOrderItem.rating = product.average_rating.toFloat()
         }
     }
 }

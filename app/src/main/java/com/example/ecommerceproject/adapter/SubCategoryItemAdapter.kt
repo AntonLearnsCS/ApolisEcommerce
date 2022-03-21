@@ -17,7 +17,18 @@ class SubCategoryItemAdapter(val listSubCategoryItem: MutableList<Product>) :
 
     override fun onBindViewHolder(holder: SubCategoryViewHolder, position: Int) {
         holder.bind(listSubCategoryItem[position])
+        holder.itemView.setOnClickListener {
+            if (this::productSubCategory.isInitialized) {
+                productSubCategory(listSubCategoryItem[position])
+            }
+        }
     }
 
     override fun getItemCount(): Int = listSubCategoryItem.size
+
+    private lateinit var productSubCategory : (Product) -> Unit
+
+    fun setProductSubCategoryListener(listener : (Product) -> Unit){
+        productSubCategory = listener
+    }
 }

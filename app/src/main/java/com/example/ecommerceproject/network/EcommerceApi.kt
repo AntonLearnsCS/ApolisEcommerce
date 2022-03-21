@@ -36,6 +36,8 @@ interface displayProducts {
     @GET("SubCategory/products/{sub_category_id}")
     fun getSubCategoryItems(@Path("sub_category_id") subCategoryId: String) : Call<SubCategoryProductResponse>
 
+    @GET("Product/details/{product_id}")
+    fun getProductDetail(@Path("product_id") productId : String) : Call<ProductDetailResponse>
 }
 
 /*

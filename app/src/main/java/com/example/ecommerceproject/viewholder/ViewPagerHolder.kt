@@ -1,9 +1,11 @@
 package com.example.ecommerceproject.viewholder
 
+import android.content.Intent
 import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ecommerceproject.activities.subcategory.ProductDetailActivity
 import com.example.ecommerceproject.adapter.SubCategoryItemAdapter
 import com.example.ecommerceproject.data.Product
 import com.example.ecommerceproject.data.SubCategoryProductResponse
@@ -37,6 +39,14 @@ class ViewPagerHolder(val binding: ViewPagerViewHolderBinding) :
                             binding.rvDisplaySubcategoryProducts.adapter = adapter
                             binding.rvDisplaySubcategoryProducts.layoutManager =
                                 LinearLayoutManager(binding.root.context)
+
+                            adapter.setProductSubCategoryListener { product ->
+
+                            val intent = Intent(binding.root.context, ProductDetailActivity::class.java)
+                                intent.putExtra("productId", product.product_id)
+
+                                binding.root.context.startActivity(intent)
+                            }
                         }
                     }
                     else{

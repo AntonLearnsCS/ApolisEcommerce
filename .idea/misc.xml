@@ -8,11 +8,13 @@
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/activity_dashboard.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/activity_login.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/activity_product_detail.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/activity_register.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/activity_sub_category.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/cart_product_view_holder.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/category_view_holder.xml" value="0.128125" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/custom_radio_button.xml" value="0.18" />
+        <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/customer_review_view_holder.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/dashboard_layout_activity.xml" value="0.1" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/dialog_address_layout.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/fragment_cart.xml" value="0.1" />
@@ -20,11 +22,13 @@
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/fragment_dash_board.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/fragment_delivery.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/fragment_orders.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/fragment_payment.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/fragment_payment.xml" value="0.1" />
+        <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/fragment_product_detail.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/fragment_summary.xml" value="0.19010416666666666" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/layout_profile.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/orders_view_holder.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/product_item.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/specification_view_holder.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/subcategory_item.xml" value="0.1" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/subcategory_item_view_holder.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/summary_product_view_holder.xml" value="0.20416666666666666" />
