@@ -33,6 +33,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
-        }, 500) // 3000 is the delayed time in milliseconds.
+        }, 2000) // 2000 is the delayed time in milliseconds.
     }
 }

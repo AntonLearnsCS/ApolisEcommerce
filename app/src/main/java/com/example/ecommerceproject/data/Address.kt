@@ -14,7 +14,7 @@ data class Address(
 @Entity
 data class CurrentAddress(
     @PrimaryKey
-    val addressPrimaryKey : Int,
+    val addressPrimaryKey : Int = 1,
     val user_id : Int,
     val addressTitle : String,
     val addressText : String)

@@ -10,11 +10,10 @@
         android:id="@+id/tv_total_bill_title"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent=".05"
+        app:layout_constraintHeight_percent=".07"
         android:text="@string/total_bill"
         android:textSize="30sp"
         android:textColor="#FFC107"
-        android:layout_margin="@dimen/small_margin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Total bill: " />

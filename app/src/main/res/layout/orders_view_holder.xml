@@ -41,7 +41,7 @@
             android:layout_height="20dp"
             android:isIndicator="true"
             android:layout_margin="@dimen/small_margin"
-            android:numStars="5"
+            android:rating="2.5"
             style="@style/Widget.AppCompat.RatingBar.Small"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

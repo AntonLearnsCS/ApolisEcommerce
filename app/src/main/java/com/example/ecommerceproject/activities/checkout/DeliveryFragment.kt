@@ -43,20 +43,18 @@ class DeliveryFragment : Fragment() {
         binding.rgAddresses.removeAllViews()
         val listOfAddresses: List<Address> =
             EcommerceDatabase.getInstance(binding.root.context).ecommerceDao.getAddresses(userId.toInt())
-        var counter = 1
         for (element in listOfAddresses) {
             val radioButton = RadioButton(binding.root.context)
             radioButton.tag = CurrentAddress(addressPrimaryKey = element.addressPrimaryKey, user_id = element.user_id, addressTitle = element.addressTitle,
             addressText = element.addressText)
             val text = "${element.addressTitle}\n${element.addressText}"
             radioButton.text = text
-            radioButton.id = counter
-            counter++
+
             radioButton.setOnClickListener {
                 Log.i("tagDelivery","payment clicked ${element}")
 
                 EcommerceDatabase.getInstance(binding.root.context).ecommerceDao.saveCheckoutAddress(
-                    CurrentAddress(0, userId.toInt(),element.addressTitle,element.addressText)
+                    CurrentAddress(1, userId.toInt(),element.addressTitle,element.addressText)
                 )
             }
             radioButton.layoutParams = LinearLayout.LayoutParams(

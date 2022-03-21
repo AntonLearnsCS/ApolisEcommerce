@@ -1,6 +1,7 @@
 package com.example.ecommerceproject.viewholder
 
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
@@ -62,6 +63,16 @@ private var currentQuantity = 0
                 product.quantity = currentQuantity
                 //TODO: Use background thread
                     ecommerceRepository.ecommerceDao.addProduct(product)
+
+                val builder = AlertDialog.Builder(binding.root.context)
+                    .setTitle("${product.product_name}")
+                    .setMessage("Added to cart!")
+                    .setPositiveButton("Ok"){
+                        dialog, which ->
+                        dialog.dismiss()
+                    }
+                val dialog = builder.create()
+                dialog.show()
             }
         }
     }

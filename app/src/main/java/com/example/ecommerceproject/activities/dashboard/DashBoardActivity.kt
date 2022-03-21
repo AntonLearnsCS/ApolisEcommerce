@@ -50,6 +50,11 @@ class DashBoardActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
+        setSupportActionBar(binding.toolbar)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24)
+
         supportFragmentManager.beginTransaction().replace(R.id.container, DashBoardFragment()).commit()
 
         initializeSharedPreferences()
@@ -145,6 +150,17 @@ class DashBoardActivity : AppCompatActivity() {
         val editor = sPref.edit()
         editor.clear()
         editor.apply()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == android.R.id.home){
+            if(binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                binding.drawerLayout.closeDrawer(GravityCompat.START)
+            } else {
+                binding.drawerLayout.openDrawer(GravityCompat.START)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

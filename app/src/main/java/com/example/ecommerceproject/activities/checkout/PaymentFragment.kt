@@ -29,14 +29,11 @@ class PaymentFragment : Fragment() {
         // Inflate the layout for this fragment
         return binding.root
     }
-    var counter = 1
     private fun showPaymentMethods() {
         val listOfPaymentMethods = listOf<String>("VISA","MASTERCARD","BTC","ETH","PAYPAL","DEUTSCHE")
         for (element in listOfPaymentMethods) {
             val radioButton = RadioButton(binding.root.context)
             radioButton.text = element
-            radioButton.id = counter
-            counter++
             radioButton.setOnClickListener {
                 Log.i("tagPayment","payment clicked ${element}")
                 EcommerceDatabase.getInstance(binding.root.context).ecommerceDao.saveCreditCard(
