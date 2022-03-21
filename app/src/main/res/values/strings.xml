@@ -6,4 +6,9 @@
     <string name="add_to_cart">Add to cart</string>
     <string name="remove_from_cart">Remove from cart</string>
     <string name="text_zero">0</string>
+    <string name="total_bill">Total Bill:</string>
+    <string name="checkout">Checkout</string>
+    <string name="summary">Summary</string>
+    <string name="cart_items">Cart Items</string>
+    <string name="total_bill_amount">Total bill amount</string>
 </resources>

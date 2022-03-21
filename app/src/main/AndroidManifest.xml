@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EcommerceProject">
         <activity
+            android:name=".activities.checkout.CheckoutActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.subcategory.SubCategoryActivity"
             android:exported="false" />
         <activity

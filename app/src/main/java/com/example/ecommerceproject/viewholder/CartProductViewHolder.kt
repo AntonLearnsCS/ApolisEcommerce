@@ -6,6 +6,9 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.example.ecommerceproject.Constants
 import com.example.ecommerceproject.R
+import com.example.ecommerceproject.activities.onclicklistener.DecreasedQuantityTest
+import com.example.ecommerceproject.activities.onclicklistener.IncreaseQuantityTest
+import com.example.ecommerceproject.activities.onclicklistener.RemoveProductTest
 import com.example.ecommerceproject.data.Product
 import com.example.ecommerceproject.data.database.EcommerceDatabase
 import com.example.ecommerceproject.databinding.CartProductViewHolderBinding
@@ -19,7 +22,8 @@ class CartProductViewHolder(val binding: CartProductViewHolderBinding) :
     private lateinit var ecommerceDatabase: EcommerceDatabase
     private lateinit var initialQuantity: String
     private var currentQuantity = 0
-    fun bind(product: Product) {
+    fun bind(product: Product, decreasedQuantityTest: DecreasedQuantityTest, increaseQuantityTest: IncreaseQuantityTest,
+    removeProductTest: RemoveProductTest, position : Int) {
 
         ecommerceDatabase = EcommerceDatabase.getInstance(binding.root.context)
 
@@ -43,17 +47,19 @@ class CartProductViewHolder(val binding: CartProductViewHolderBinding) :
         binding.btnCartOrderPlus.setOnClickListener {
             currentQuantity = binding.tvCartItemCount.text.toString().toInt() + 1
             updateQuantity(product)
+            increaseQuantityTest.increaseQuantity(product.price.toFloat())
         }
 
         binding.btnCartOrderMinus.setOnClickListener {
             currentQuantity = binding.tvCartItemCount.text.toString().toInt() - 1
 
             if (currentQuantity > 0) {
+                decreasedQuantityTest.decreasedQuantity(product.price.toFloat())
                 updateQuantity(product)
             }
         }
 
-        binding.btnRemoveFromCart.setOnClickListener {
+        /*binding.btnRemoveFromCart.setOnClickListener {
 
             val sPref = EncryptedSharedPreferences.create(
                 "login_settings", MasterKeys.getOrCreate(
@@ -65,6 +71,7 @@ class CartProductViewHolder(val binding: CartProductViewHolderBinding) :
 
             val currentUserId: String? = sPref.getString("currentUserId", "0")
 
+            removeProductTest.removeProductTest(product, position)
             product.user_id = currentUserId?.toInt()
             //TODO: Use background thread
             currentUserId?.let {
@@ -73,7 +80,7 @@ class CartProductViewHolder(val binding: CartProductViewHolderBinding) :
                     product.product_name
                 )
             }
-        }
+        }*/
     }
 
     fun updateQuantity(product: Product) {

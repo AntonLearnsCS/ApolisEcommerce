@@ -2,8 +2,7 @@ package com.example.ecommerceproject.data.dao
 
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
-import com.example.ecommerceproject.data.Product
-import com.example.ecommerceproject.data.User
+import com.example.ecommerceproject.data.*
 
 @Dao
 interface EcommerceDao {
@@ -28,6 +27,18 @@ interface EcommerceDao {
 
     @Insert
     fun savePastOrders(product : List<Product>)
+
+    @Query("SELECT * FROM address WHERE user_id = :userId")
+    fun getAddresses(userId : Int) : List<Address>
+
+    @Insert
+    fun saveAddress(address: Address)
+
+    @Insert(onConflict = REPLACE)
+    fun saveCheckoutAddress(address: CurrentAddress)
+
+    @Insert(onConflict = REPLACE)
+    fun saveCreditCard(creditCard: CreditCard)
 
 }
 
