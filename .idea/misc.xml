@@ -10,6 +10,7 @@
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/activity_product_detail.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/activity_register.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/activity_search_product.xml" value="0.1" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/activity_sub_category.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/cart_product_view_holder.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/category_view_holder.xml" value="0.128125" />
@@ -29,12 +30,15 @@
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/layout_profile.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/orders_view_holder.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/product_item.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/searchable.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/specification_view_holder.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/subcategory_item.xml" value="0.1" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/subcategory_item_view_holder.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/summary_product_view_holder.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/layout/view_pager_view_holder.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/menu/main_menu.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/menu/menu.xml" value="0.49122807017543857" />
+        <entry key="..\:/Users/Anton/Documents/ApolisMisc/EcommerceProject/app/src/main/res/xml/searchable.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>

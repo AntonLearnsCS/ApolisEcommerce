@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EcommerceProject">
         <activity
+            android:name=".activities.search_product.SearchProductActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.subcategory.ProductDetailActivity"
             android:exported="false" />
         <activity
@@ -22,7 +25,11 @@
             android:exported="false" />
         <activity
             android:name=".activities.dashboard.DashBoardActivity"
-            android:exported="false" />
+            android:exported="false">
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value="com.example.ecommerceproject.activities.search_product.SearchProductActivity" />
+        </activity>
         <activity
             android:name=".activities.RegisterActivity"
             android:exported="false" />

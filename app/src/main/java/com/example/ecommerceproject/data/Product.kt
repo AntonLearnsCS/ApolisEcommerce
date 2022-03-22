@@ -34,3 +34,4 @@ data class Product(
     @Json(name = "is_purchased")
     var is_purchased : Int = 0
 )
+

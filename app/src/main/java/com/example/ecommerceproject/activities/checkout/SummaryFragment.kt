@@ -33,13 +33,21 @@ class SummaryFragment : Fragment() {
 
         loadSummaryProducts(binding.root.context)
 
-        initializeViews()
+        //initializeViews()
 
         binding.btnConfirmSummary.setOnClickListener {
             checkProvidedInformation()
         }
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    //note: adjacent fragments in a viewPager2 are initialized pre-emptively, meaning their
+    // onCreate methods are called. This was the source of the text not updating. Solution
+    // was to perform check in onResume()
+    override fun onResume() {
+        super.onResume()
+        initializeViews()
     }
 
     private fun initializeViews() {

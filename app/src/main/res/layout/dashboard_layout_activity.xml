@@ -32,16 +32,6 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-
-
-        <!-- <fragment
-             android:id="@+id/nav_host_dashboard_fragment"
-             android:name="androidx.navigation.fragment.NavHostFragment"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             app:defaultNavHost="true"
-             android:windowSoftInputMode="adjustPan|adjustResize"
-             app:navGraph="@navigation/navigation_entry_graph" />-->
         <FrameLayout
             android:id="@+id/container"
             android:layout_width="match_parent"

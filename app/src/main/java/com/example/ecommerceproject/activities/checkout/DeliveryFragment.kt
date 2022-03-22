@@ -12,13 +12,14 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
-import com.example.ecommerceproject.data.Address
-import com.example.ecommerceproject.data.CurrentAddress
-import com.example.ecommerceproject.data.UserAddress
+import com.example.ecommerceproject.data.*
 import com.example.ecommerceproject.data.database.EcommerceDatabase
 import com.example.ecommerceproject.databinding.DialogAddressLayoutBinding
 import com.example.ecommerceproject.databinding.FragmentDeliveryBinding
 import com.example.ecommerceproject.network.EcommerceApiAccessObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
 
 class DeliveryFragment : Fragment() {
@@ -43,28 +44,52 @@ class DeliveryFragment : Fragment() {
     //source: https://www.geeksforgeeks.org/dynamic-radiobutton-in-kotlin/
     private fun showAddresses() {
         binding.rgAddresses.removeAllViews()
-        val listOfAddresses: List<Address> =
-            EcommerceDatabase.getInstance(binding.root.context).ecommerceDao.getAddresses(userId.toInt())
-        for (element in listOfAddresses) {
-            val radioButton = RadioButton(binding.root.context)
-            radioButton.tag = CurrentAddress(addressPrimaryKey = element.addressPrimaryKey, user_id = element.user_id, addressTitle = element.addressTitle,
-            addressText = element.addressText)
-            val text = "${element.addressTitle}\n${element.addressText}"
-            radioButton.text = text
+        val callRequest: Call<ListUserAddressResponse> =
+            EcommerceApiAccessObject.retrofitCheckoutUser.getAllUserAddresses(userId)
 
-            radioButton.setOnClickListener {
-                Log.i("tagDelivery","payment clicked ${element}")
+        callRequest.enqueue(object : Callback<ListUserAddressResponse> {
+            override fun onResponse(
+                call: Call<ListUserAddressResponse>,
+                response: Response<ListUserAddressResponse>
+            ) {
+                if (response.isSuccessful) {
+                    if (response.body()?.status == 0) {
+                        val listResponseAddresse = response.body()?.addresses
+                        listResponseAddresse?.let {
+                            for (element in it) {
+                                val radioButton = RadioButton(binding.root.context)
 
-                EcommerceDatabase.getInstance(binding.root.context).ecommerceDao.saveCheckoutAddress(
-                    CurrentAddress(1, userId.toInt(),element.addressTitle,element.addressText)
-                )
+                                val text = "${element.title}\n${element.address}"
+                                radioButton.text = text
+
+                                radioButton.setOnClickListener {
+                                    Log.i("tagDelivery", "payment clicked ${element}")
+
+                                    EcommerceDatabase.getInstance(binding.root.context).ecommerceDao.saveCheckoutAddress(
+                                        CurrentAddress(
+                                            1,
+                                            userId.toInt(),
+                                            element.title,
+                                            element.address
+                                        )
+                                    )
+                                }
+                                radioButton.layoutParams = LinearLayout.LayoutParams(
+                                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                                    ViewGroup.LayoutParams.WRAP_CONTENT
+                                )
+                                binding.rgAddresses.addView(radioButton)
+                            }
+                        }
+                    }
+                }
             }
-            radioButton.layoutParams = LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-            binding.rgAddresses.addView(radioButton)
-        }
+
+            override fun onFailure(call: Call<ListUserAddressResponse>, t: Throwable) {
+                t.printStackTrace()
+            }
+        })
+
     }
 
 
@@ -81,21 +106,45 @@ class DeliveryFragment : Fragment() {
         dialogBinding.btnYesAddress.setOnClickListener {
             val addressTitle = dialogBinding.etAddressTitle.text.toString()
             val addressText = dialogBinding.etAddressText.text.toString()
-            userId?.let {
-                val random = Random()
-                val randomPrimaryKey = random.nextInt(1000)
+            userId.let {
                 saveAddress(UserAddress(userId.toInt(), addressTitle, addressText))
-
-                val address = Address(randomPrimaryKey, it.toInt(), addressTitle, addressText)
-                EcommerceDatabase.getInstance(binding.root.context).ecommerceDao.saveAddress(address)
             }
             showAddresses()
             dialog.dismiss()
         }
     }
 
-    fun saveAddress(userAddress: UserAddress){
-        EcommerceApiAccessObject.retrofitCheckoutUser.saveUserAddress()
+    fun saveAddress(userAddress: UserAddress) {
+        val callRequest = EcommerceApiAccessObject.retrofitCheckoutUser.saveUserAddress(userAddress)
+
+        callRequest.enqueue(object : Callback<GenericPostResponse> {
+            override fun onResponse(
+                call: Call<GenericPostResponse>,
+                response: Response<GenericPostResponse>
+            ) {
+                if (response.isSuccessful) {
+                    if (response.body()?.status == 0) {
+                        Toast.makeText(
+                            binding.root.context,
+                            "Address saved succesfully",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                } else {
+                    Toast.makeText(
+                        binding.root.context,
+                        "Address failed to save. Please Retry.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<GenericPostResponse>, t: Throwable) {
+                t.printStackTrace()
+            }
+
+        })
+
     }
 
     private fun getUserInformation() {

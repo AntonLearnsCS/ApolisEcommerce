@@ -1,11 +1,15 @@
 package com.example.ecommerceproject.activities.subcategory
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.SearchManager
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ecommerceproject.Constants
 import com.example.ecommerceproject.R
+import com.example.ecommerceproject.activities.dashboard.DashBoardActivity
 import com.example.ecommerceproject.adapter.CustomerReviewAdapter
 import com.example.ecommerceproject.adapter.ProductDetailAdapterSpecification
 import com.example.ecommerceproject.data.ProductDetailResponse
@@ -16,6 +20,7 @@ import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class ProductDetailActivity : AppCompatActivity() {
     private lateinit var specificationAdapter : ProductDetailAdapterSpecification
@@ -36,21 +41,7 @@ class ProductDetailActivity : AppCompatActivity() {
                     response: Response<ProductDetailResponse>
                 ) {
                     if (response.isSuccessful){
-                        if (response.body()?.status == 0){
-                            initializeViews(response.body()!!.product)
-                         val specificationList = response.body()?.product?.specifications
-                         val reviewList = response.body()?.product?.reviews
-                            specificationList?.let {
-                                specificationAdapter = ProductDetailAdapterSpecification(it)
-                                binding.rvSpecifications.adapter = specificationAdapter
-                                binding.rvSpecifications.layoutManager = LinearLayoutManager(this@ProductDetailActivity)
-                            }
-                            reviewList?.let {
-                                reviewAdapter = CustomerReviewAdapter(it)
-                                binding.rvReviews.adapter = reviewAdapter
-                                binding.rvReviews.layoutManager = LinearLayoutManager(this@ProductDetailActivity)
-                            }
-                        }
+                        showProductDetail(response)
                     }
                 }
 
@@ -62,6 +53,27 @@ class ProductDetailActivity : AppCompatActivity() {
 
         }
     }
+
+    private fun showProductDetail(response: Response<ProductDetailResponse>) {
+        if (response.body()?.status == 0) {
+            initializeViews(response.body()!!.product)
+            val specificationList = response.body()?.product?.specifications
+            val reviewList = response.body()?.product?.reviews
+            specificationList?.let {
+                specificationAdapter = ProductDetailAdapterSpecification(it)
+                binding.rvSpecifications.adapter = specificationAdapter
+                binding.rvSpecifications.layoutManager =
+                    LinearLayoutManager(this@ProductDetailActivity)
+            }
+            reviewList?.let {
+                reviewAdapter = CustomerReviewAdapter(it)
+                binding.rvReviews.adapter = reviewAdapter
+                binding.rvReviews.layoutManager = LinearLayoutManager(this@ProductDetailActivity)
+            }
+        }
+    }
+
+
 
     private fun initializeViews(productX : ProductX) {
         binding.tvProductDetailTitle.text = productX.product_name

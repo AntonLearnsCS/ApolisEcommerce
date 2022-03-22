@@ -12,4 +12,6 @@
     <string name="cart_items">Cart Items</string>
     <string name="total_bill_amount">Total bill amount</string>
     <string name="payment_method">Payment Method:</string>
+    <string name="menu_search">Search Product</string>
+    <string name="search_hint">search product</string>
 </resources>

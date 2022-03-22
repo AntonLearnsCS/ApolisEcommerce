@@ -1,42 +1,31 @@
 package com.example.ecommerceproject.activities.dashboard
 
+//import com.example.ecommerceproject.databinding.ActivityDashboardBinding
+
+import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.GravityCompat
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.example.ecommerceproject.R
 import com.example.ecommerceproject.activities.LoginActivity
-import com.example.ecommerceproject.activities.subcategory.SubCategoryActivity
-import com.example.ecommerceproject.adapter.CategoryAdapter
-import com.example.ecommerceproject.data.Category
-import com.example.ecommerceproject.data.ProductCategoriesResponse
 import com.example.ecommerceproject.data.User
 import com.example.ecommerceproject.data.database.EcommerceDatabase
 import com.example.ecommerceproject.databinding.DashboardLayoutActivityBinding
-import com.example.ecommerceproject.factory.DashBoardViewModelFactory
 import com.example.ecommerceproject.navigation_drawer.CartFragment
 import com.example.ecommerceproject.navigation_drawer.DashBoardFragment
 import com.example.ecommerceproject.navigation_drawer.OrdersFragment
 import com.example.ecommerceproject.navigation_drawer.ProfileFragment
-//import com.example.ecommerceproject.databinding.ActivityDashboardBinding
-import com.example.ecommerceproject.network.EcommerceApiAccessObject
-import com.example.ecommerceproject.viewmodel.DashBoardViewModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+
 
 class DashBoardActivity : AppCompatActivity() {
     private lateinit var sPref : SharedPreferences
@@ -51,6 +40,8 @@ class DashBoardActivity : AppCompatActivity() {
 
 
         setSupportActionBar(binding.toolbar)
+
+        supportActionBar?.title = null
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24)
@@ -150,6 +141,18 @@ class DashBoardActivity : AppCompatActivity() {
         val editor = sPref.edit()
         editor.clear()
         editor.apply()
+    }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        // Inflate menu to add items to action bar if it is present.
+        inflater.inflate(R.menu.main_menu, menu)
+        // Associate searchable configuration with the SearchView
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchView: SearchView = menu.findItem(R.id.menu_search).getActionView() as SearchView
+        searchView.setSearchableInfo(
+            searchManager.getSearchableInfo(componentName)
+        )
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -38,6 +38,9 @@ interface displayProducts {
 
     @GET("Product/details/{product_id}")
     fun getProductDetail(@Path("product_id") productId : String) : Call<ProductDetailResponse>
+
+    @GET("Product/search")
+    fun searchProduct(@Query("query") searchText : String) : Call<SearchProductResponse>
 }
 
 /*
@@ -51,10 +54,10 @@ On branch master
 interface CheckoutProducts {
 
     @POST("User/address")
-    fun saveUserAddress(userAddress: UserAddress) : Call<GenericPostResponse>
+    fun saveUserAddress(@Body userAddress: UserAddress) : Call<GenericPostResponse>
 
     @GET("User/addresses/{user_id}")
-    fun getAllUserAddresses(@Path("user_id") userId : String)
+    fun getAllUserAddresses(@Path("user_id") userId : String) : Call<ListUserAddressResponse>
 
 }
 
