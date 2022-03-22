@@ -48,8 +48,13 @@ to make the POST requests. Also, I need to explore how Retrofit handles and conv
 On branch master
 
  */
-interface checkoutProducts {
+interface CheckoutProducts {
 
+    @POST("User/address")
+    fun saveUserAddress(userAddress: UserAddress) : Call<GenericPostResponse>
+
+    @GET("User/addresses/{user_id}")
+    fun getAllUserAddresses(@Path("user_id") userId : String)
 
 }
 
@@ -78,11 +83,11 @@ interface UserEntryInterface {
 
 
 object EcommerceApiAccessObject{
-    val moshi = Moshi.Builder()
+    private val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
         .build()
 
-    val retrofit = Retrofit.Builder()
+    private val retrofit = Retrofit.Builder()
         .baseUrl(Constants.BASE_URL_API)
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .build()
@@ -94,5 +99,9 @@ object EcommerceApiAccessObject{
 
     val retrofitDisplayProducts : displayProducts by lazy {
         retrofit.create(displayProducts::class.java)
+    }
+
+    val retrofitCheckoutUser : CheckoutProducts by lazy {
+        retrofit.create(CheckoutProducts::class.java)
     }
 }

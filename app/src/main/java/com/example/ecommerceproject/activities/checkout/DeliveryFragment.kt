@@ -14,9 +14,11 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.example.ecommerceproject.data.Address
 import com.example.ecommerceproject.data.CurrentAddress
+import com.example.ecommerceproject.data.UserAddress
 import com.example.ecommerceproject.data.database.EcommerceDatabase
 import com.example.ecommerceproject.databinding.DialogAddressLayoutBinding
 import com.example.ecommerceproject.databinding.FragmentDeliveryBinding
+import com.example.ecommerceproject.network.EcommerceApiAccessObject
 import java.util.*
 
 class DeliveryFragment : Fragment() {
@@ -82,12 +84,18 @@ class DeliveryFragment : Fragment() {
             userId?.let {
                 val random = Random()
                 val randomPrimaryKey = random.nextInt(1000)
+                saveAddress(UserAddress(userId.toInt(), addressTitle, addressText))
+
                 val address = Address(randomPrimaryKey, it.toInt(), addressTitle, addressText)
                 EcommerceDatabase.getInstance(binding.root.context).ecommerceDao.saveAddress(address)
             }
             showAddresses()
             dialog.dismiss()
         }
+    }
+
+    fun saveAddress(userAddress: UserAddress){
+        EcommerceApiAccessObject.retrofitCheckoutUser.saveUserAddress()
     }
 
     private fun getUserInformation() {
