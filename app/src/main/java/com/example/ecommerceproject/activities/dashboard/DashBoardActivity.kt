@@ -18,6 +18,7 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.example.ecommerceproject.R
 import com.example.ecommerceproject.activities.LoginActivity
+import com.example.ecommerceproject.activities.search_product.SearchProductActivity
 import com.example.ecommerceproject.data.User
 import com.example.ecommerceproject.data.database.EcommerceDatabase
 import com.example.ecommerceproject.databinding.DashboardLayoutActivityBinding
@@ -152,6 +153,18 @@ class DashBoardActivity : AppCompatActivity() {
         searchView.setSearchableInfo(
             searchManager.getSearchableInfo(componentName)
         )
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                val intent = Intent(this@DashBoardActivity,SearchProductActivity::class.java)
+                intent.putExtra("query",query)
+                startActivity(intent)
+                return false
+            }
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return true
+            }
+        })
         return true
     }
 

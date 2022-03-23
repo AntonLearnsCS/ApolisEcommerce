@@ -14,4 +14,6 @@
     <string name="payment_method">Payment Method:</string>
     <string name="menu_search">Search Product</string>
     <string name="search_hint">search product</string>
+    <string name="product_not_found">Product not found</string>
+    <string name="items_in_cart">Items in Cart</string>
 </resources>

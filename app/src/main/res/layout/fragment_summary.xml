@@ -45,7 +45,7 @@
     <TextView
         android:id="@+id/tv_total_bill_summary_number"
         tools:text="$150"
-        android:textColor="#FFC107"
+        android:textColor="@color/golden_yellow_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline2"
         android:textSize="@dimen/small_text_size"

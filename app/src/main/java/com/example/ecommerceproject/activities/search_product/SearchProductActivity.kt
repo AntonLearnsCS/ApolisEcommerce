@@ -4,6 +4,8 @@ import android.app.SearchManager
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.example.ecommerceproject.Constants
 import com.example.ecommerceproject.R
@@ -27,6 +29,10 @@ class SearchProductActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val query : String? = intent.getStringExtra("query")
+
+        searchQuery(query)
 
         initializeEvents()
     }
@@ -60,62 +66,41 @@ class SearchProductActivity : AppCompatActivity() {
         }
     }
 
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        handleIntent(intent)
-    }
-
-    private fun handleIntent(intent: Intent) {
-        if (Intent.ACTION_SEARCH == intent.action) {
-            val query = intent.getStringExtra(SearchManager.QUERY)
-            //use the query to search
-            query?.let {
-                val callRequest = EcommerceApiAccessObject.retrofitDisplayProducts.searchProduct(it)
-                callRequest.enqueue(object : Callback<SearchProductResponse> {
-                    override fun onResponse(
-                        call: Call<SearchProductResponse>,
-                        response: Response<SearchProductResponse>
-                    ) {
-                        if(response.isSuccessful){
-                            if (response.body()?.status == 0){
-                                response.body()?.products?.let {
-                                    //assuming only one product is returned
-                                    currentProduct = it[0]
-                                }
-                                displaySearchResult()
+    fun searchQuery(query : String?){
+        Log.i("tag","onNewIntent called ${query}")
+        //use the query to search
+        query?.let {
+            val callRequest = EcommerceApiAccessObject.retrofitDisplayProducts.searchProduct(it)
+            callRequest.enqueue(object : Callback<SearchProductResponse> {
+                override fun onResponse(
+                    call: Call<SearchProductResponse>,
+                    response: Response<SearchProductResponse>
+                ) {
+                    if(response.isSuccessful){
+                        if (response.body()?.status == 0){
+                            response.body()?.products?.let {
+                                //assuming only one product is returned
+                                currentProduct = it[0]
                             }
-                        }
-                        else{
-                            Toast.makeText(this@SearchProductActivity,"${query} not found", Toast.LENGTH_LONG).show()
-                            startActivity(
-                                Intent(this@SearchProductActivity,
-                                    DashBoardActivity::class.java)
-                            )
+                            displaySearchResult()
                         }
                     }
-
-                    override fun onFailure(call: Call<SearchProductResponse>, t: Throwable) {
-                        t.printStackTrace()
+                    else{
+                        Toast.makeText(this@SearchProductActivity,"${query} not found", Toast.LENGTH_LONG).show()
+                        binding.tvSearchProductNotFound.visibility = View.VISIBLE
                     }
+                }
 
-                })
-            }
+                override fun onFailure(call: Call<SearchProductResponse>, t: Throwable) {
+                    t.printStackTrace()
+                }
+
+            })
         }
     }
 
+
     private fun displaySearchResult() {
-        /*
-         val average_rating: String,
-    val category_id: String,
-    val category_name: String,
-    val description: String,
-    val price: String,
-    val product_id: String,
-    val product_image_url: String,
-    val product_name: String,
-    val sub_category_id: String,
-    val subcategory_name: String
-         */
         binding.apply {
             Picasso.get().load("${Constants.BASE_URL_IMAGES}${currentProduct.product_image_url}")
                 .placeholder(R.drawable.phone_place_holder)
@@ -123,7 +108,8 @@ class SearchProductActivity : AppCompatActivity() {
                 .into(binding.ivSearchResultImage)
             tvSearchResultTitle.text = currentProduct.product_name
             tvSearchResultDetail.text = currentProduct.description
-            tvSearchResultPrice.text = currentProduct.price
+            val textPrice = "$${currentProduct.price}"
+            tvSearchResultPrice.text = textPrice
         }
     }
 }

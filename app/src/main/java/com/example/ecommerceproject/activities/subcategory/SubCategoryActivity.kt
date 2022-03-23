@@ -43,7 +43,6 @@ class SubCategoryActivity : AppCompatActivity() {
                         listSubCategories?.let {
                             adapter = ViewPagerAdapter(listSubCategories)
                             binding.viewPager2Layout.adapter = adapter
-
                             TabLayoutMediator(
                                 binding.tabLayout,
                                 binding.viewPager2Layout

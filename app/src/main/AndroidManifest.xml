@@ -13,7 +13,17 @@
         android:theme="@style/Theme.EcommerceProject">
         <activity
             android:name=".activities.search_product.SearchProductActivity"
-            android:exported="false" />
+            android:exported="false" >
+            <!-- to identify this activity as "searchable" -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
         <activity
             android:name=".activities.subcategory.ProductDetailActivity"
             android:exported="false" />

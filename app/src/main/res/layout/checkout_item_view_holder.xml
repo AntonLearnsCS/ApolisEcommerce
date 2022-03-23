@@ -3,9 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="0dp"
-    app:layout_constraintHeight_percent=".5"
-    tools:layout_height="300dp"
+    android:layout_height="300dp"
     android:layout_margin="@dimen/small_margin">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,12 +11,12 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/iv_search_result_image"
+            android:id="@+id/iv_checkout_result_image"
             android:scaleType="fitXY"
             android:adjustViewBounds="false"
             android:layout_width="0dp"
             tools:src="@drawable/phone_place_holder"
-            app:layout_constraintBottom_toTopOf="@id/btn_search_result_add"
+            app:layout_constraintBottom_toTopOf="@id/btn_checkout_item_add"
             android:layout_height="0dp"
             app:layout_constraintHeight_percent=".6"
             app:layout_constraintWidth_percent=".4"
@@ -27,18 +25,18 @@
             />
 
         <TextView
-            android:id="@+id/tv_search_result_title"
+            android:id="@+id/tv_checkout_item_title"
             android:layout_width="0dp"
             app:layout_constraintWidth_percent=".3"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:textSize="30sp"
-            app:layout_constraintStart_toEndOf="@id/iv_search_result_image"
-            app:layout_constraintTop_toTopOf="@id/iv_search_result_image"
+            app:layout_constraintStart_toEndOf="@id/iv_checkout_result_image"
+            app:layout_constraintTop_toTopOf="@id/iv_checkout_result_image"
             tools:text="Title" />
         <!-- https://stackoverflow.com/questions/6153587/how-can-i-decrease-the-size-of-ratingbar-->
         <RatingBar
-            android:id="@+id/rb_search_result_item"
+            android:id="@+id/rb_checkout_item"
             android:layout_width="100dp"
             android:layout_height="20dp"
             android:isIndicator="true"
@@ -50,46 +48,36 @@
             tools:rating="2.5" />
 
         <TextView
-            android:id="@+id/tv_search_result_detail"
+            android:id="@+id/tv_checkout_detail"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:gravity="fill"
             android:textSize="@dimen/small_text_size"
             app:layout_constraintHeight_percent=".3"
-            app:layout_constraintStart_toEndOf="@id/iv_search_result_image"
-            app:layout_constraintTop_toBottomOf="@id/tv_search_result_title"
+            app:layout_constraintStart_toEndOf="@id/iv_checkout_result_image"
+            app:layout_constraintTop_toBottomOf="@id/tv_checkout_item_title"
             app:layout_constraintWidth_percent=".55" />
 
         <TextView
-            android:id="@+id/tv_search_result_price"
-            app:layout_constraintHeight_percent=".18"
+            android:id="@+id/tv_checkout_item_price"
+            app:layout_constraintHeight_percent=".2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/iv_search_result_image"
-            app:layout_constraintTop_toBottomOf="@id/tv_search_result_detail"
+            app:layout_constraintStart_toEndOf="@id/iv_checkout_result_image"
+            app:layout_constraintTop_toBottomOf="@id/tv_checkout_detail"
             app:layout_constraintWidth_percent=".3"
+            android:layout_marginTop="@dimen/small_margin"
             style="@style/tv_price_style" />
 
         <Button
-            android:id="@+id/btn_search_result_add"
-            android:visibility="visible"
+            android:id="@+id/btn_checkout_item_add"
+            android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/add_to_cart"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_search_result_image" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_checkout_result_image" />
 
-        <TextView
-            android:id="@+id/tv_search_product_not_found"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:text="@string/product_not_found"
-            android:visibility="invisible"
-            android:textStyle="bold"
-            android:textSize="@dimen/medium_text_size"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

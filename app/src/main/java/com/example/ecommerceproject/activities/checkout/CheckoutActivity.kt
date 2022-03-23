@@ -16,7 +16,7 @@ class CheckoutActivity : AppCompatActivity() {
         adapter = CheckoutAdapter(this)
         binding.vpCheckout.adapter = CheckoutAdapter(this)
 
-        val listCheckoutTitles = listOf("Delivery","Payment","Summary")
+        val listCheckoutTitles = listOf("Cart","Delivery","Payment","Summary")
         TabLayoutMediator(binding.tabLayoutCheckout, binding.vpCheckout) { tab, position ->
             tab.text = listCheckoutTitles[position]
         }.attach()
