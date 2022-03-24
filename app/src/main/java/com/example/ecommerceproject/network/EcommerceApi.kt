@@ -84,8 +84,7 @@ interface UserEntryInterface {
     fun register(@Body body: RegisterUser?): Call<RegistrationResponse>
 }
 
-
-object EcommerceApiAccessObject{
+object EcommerceApiAccessObject {
     private val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
         .build()
