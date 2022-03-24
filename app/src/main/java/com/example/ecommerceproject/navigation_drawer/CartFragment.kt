@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
@@ -17,8 +19,12 @@ import com.example.ecommerceproject.activities.onclicklistener.IncreaseQuantityT
 import com.example.ecommerceproject.activities.onclicklistener.RemoveProductTest
 import com.example.ecommerceproject.adapter.CartProductAdapter
 import com.example.ecommerceproject.data.Product
+import com.example.ecommerceproject.data.database.CentralRepository
 import com.example.ecommerceproject.data.database.EcommerceDatabase
+import com.example.ecommerceproject.data.database.LocalRepository
+import com.example.ecommerceproject.data.database.RemoteRepository
 import com.example.ecommerceproject.databinding.FragmentCartBinding
+import com.example.ecommerceproject.network.EcommerceApiAccessObject
 import java.text.FieldPosition
 
 
@@ -26,11 +32,17 @@ class CartFragment : Fragment(), DecreasedQuantityTest, IncreaseQuantityTest, Re
     private lateinit var adapter : CartProductAdapter
     private lateinit var binding : FragmentCartBinding
     private lateinit var productsInCart : MutableList<Product>
+    private lateinit var viewModel: NavigationSharedViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCartBinding.inflate(layoutInflater, container,false)
+
+        viewModel = ViewModelProvider(requireActivity()).get(NavigationSharedViewModel::class.java)
+
+        productsInCart = mutableListOf<Product>()
 
         loadCartProducts(binding.root.context)
 
@@ -49,19 +61,20 @@ class CartFragment : Fragment(), DecreasedQuantityTest, IncreaseQuantityTest, Re
 
         val currentUserId : String? = sPref.getString("currentUserId","0")
 
-        val ecommerceDatabase = EcommerceDatabase.getInstance(context)
-
-        currentUserId?.let {
-            productsInCart =
-                ecommerceDatabase.ecommerceDao.getCartProducts(it).toMutableList()
+        viewModel.cartOrders.observe(viewLifecycleOwner, Observer {
+            adapter.submitList(it)
             var totalAmountInteger = 0
 
-            for(element in productsInCart){
+            for(element in it){
                 totalAmountInteger += (element.quantity * element.price.toInt())
             }
             val totalAmountString = "$${totalAmountInteger}"
             binding.tvTotalBill.text = totalAmountString
-            adapter = CartProductAdapter(productsInCart.toMutableList(), this, this, this)
+        })
+
+        currentUserId?.let {
+
+            adapter = CartProductAdapter(mutableListOf(), this, this, this)
             binding.rvCartProducts.layoutManager = LinearLayoutManager(context)
             binding.rvCartProducts.adapter = adapter
             binding.rvCartProducts.itemAnimator = null
@@ -97,4 +110,6 @@ class CartFragment : Fragment(), DecreasedQuantityTest, IncreaseQuantityTest, Re
         Log.i("tag","${productsInCart}")
 
     }
+
+
 }

@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.graphics.toColorInt
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
@@ -25,12 +27,14 @@ class SummaryFragment : Fragment() {
     private lateinit var adapter : SummaryProductAdapter
     private lateinit var binding : FragmentSummaryBinding
     private lateinit var productsInSummary : MutableList<Product>
+    private lateinit var viewModel: CheckoutSharedViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSummaryBinding.inflate(layoutInflater, container,false)
 
+        viewModel = ViewModelProvider(requireActivity()).get(CheckoutSharedViewModel::class.java)
         loadSummaryProducts(binding.root.context)
 
         //initializeViews()
@@ -120,19 +124,19 @@ class SummaryFragment : Fragment() {
 
         val currentUserId : String? = sPref.getString("currentUserId","0")
 
-        val ecommerceDatabase = EcommerceDatabase.getInstance(context)
-
-        currentUserId?.let {
-            productsInSummary =
-                ecommerceDatabase.ecommerceDao.getCartProducts(it).toMutableList()
+        viewModel.listCheckoutProducts.observe(viewLifecycleOwner, Observer {
+            adapter.submitList(it)
             var totalAmountInteger = 0
 
-            for(element in productsInSummary){
+            for(element in it){
                 totalAmountInteger += (element.quantity * element.price.toInt())
             }
             val totalAmountString = "$${totalAmountInteger}"
             binding.tvTotalBillSummaryNumber.text = totalAmountString
-            adapter = SummaryProductAdapter(productsInSummary.toMutableList())
+        })
+
+        currentUserId?.let {
+            adapter = SummaryProductAdapter(mutableListOf())
             binding.rvSummaryList.layoutManager = LinearLayoutManager(context)
             binding.rvSummaryList.adapter = adapter
             binding.rvSummaryList.itemAnimator = null

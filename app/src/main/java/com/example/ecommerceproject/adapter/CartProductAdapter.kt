@@ -35,7 +35,14 @@ class CartProductAdapter(
     }
 
 
+
     override fun getItemCount(): Int = listCartProduct.size
+
+    fun submitList(newData : List<Product>){
+        listCartProduct.clear()
+        listCartProduct.addAll(newData)
+        notifyDataSetChanged()
+    }
 
     private lateinit var onRemoveClicked : (Product) -> Unit
 

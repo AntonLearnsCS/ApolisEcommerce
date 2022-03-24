@@ -7,7 +7,7 @@ import com.example.ecommerceproject.data.Product
 import com.example.ecommerceproject.databinding.CheckoutItemViewHolderBinding
 import com.example.ecommerceproject.viewholder.CheckoutItemViewholder
 
-class CheckoutItemAdapter(val listProduct : List<Product>) : RecyclerView.Adapter<CheckoutItemViewholder>() {
+class CheckoutItemAdapter(val listProduct : MutableList<Product>) : RecyclerView.Adapter<CheckoutItemViewholder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CheckoutItemViewholder {
         val inflater = LayoutInflater.from(parent.context)
         val view = CheckoutItemViewHolderBinding.inflate(inflater, parent, false)
@@ -19,4 +19,11 @@ class CheckoutItemAdapter(val listProduct : List<Product>) : RecyclerView.Adapte
     }
 
     override fun getItemCount(): Int = listProduct.size
+
+
+    fun submitList(newData : List<Product>){
+        listProduct.clear()
+        listProduct.addAll(newData)
+        notifyDataSetChanged()
+    }
 }

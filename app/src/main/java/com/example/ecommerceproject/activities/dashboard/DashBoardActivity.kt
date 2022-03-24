@@ -14,18 +14,21 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.example.ecommerceproject.R
 import com.example.ecommerceproject.activities.LoginActivity
 import com.example.ecommerceproject.activities.search_product.SearchProductActivity
 import com.example.ecommerceproject.data.User
+import com.example.ecommerceproject.data.database.CentralRepository
 import com.example.ecommerceproject.data.database.EcommerceDatabase
+import com.example.ecommerceproject.data.database.LocalRepository
+import com.example.ecommerceproject.data.database.RemoteRepository
 import com.example.ecommerceproject.databinding.DashboardLayoutActivityBinding
-import com.example.ecommerceproject.navigation_drawer.CartFragment
-import com.example.ecommerceproject.navigation_drawer.DashBoardFragment
-import com.example.ecommerceproject.navigation_drawer.OrdersFragment
-import com.example.ecommerceproject.navigation_drawer.ProfileFragment
+import com.example.ecommerceproject.interfaces.GetCurrentUserId
+import com.example.ecommerceproject.navigation_drawer.*
+import com.example.ecommerceproject.network.EcommerceApiAccessObject
 
 
 class DashBoardActivity : AppCompatActivity() {
@@ -33,11 +36,17 @@ class DashBoardActivity : AppCompatActivity() {
     private lateinit var binding: DashboardLayoutActivityBinding
     private lateinit var masterKeys : String
     private lateinit var currentUser : User
+    private lateinit var viewModel : NavigationSharedViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DashboardLayoutActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        initializeSharedPreferences()
+
+        initializeViewModel()
 
 
         setSupportActionBar(binding.toolbar)
@@ -49,13 +58,21 @@ class DashBoardActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction().replace(R.id.container, DashBoardFragment()).commit()
 
-        initializeSharedPreferences()
 
 
         binding.navView.setNavigationItemSelectedListener {
             handleNavigationOperation(it)
             true
         }
+    }
+
+    private fun initializeViewModel() {
+        val localRepository = LocalRepository(EcommerceDatabase.getInstance(this))
+        val remoteRepository = RemoteRepository(EcommerceApiAccessObject)
+        val centralRepository = CentralRepository(localRepository,remoteRepository)
+        val navigationSharedViewModelFactory = NavigationSharedViewModelFactory(currentUser.user_id, centralRepository)
+
+        viewModel = ViewModelProvider(this, navigationSharedViewModelFactory).get(NavigationSharedViewModel::class.java)
     }
 
     private fun initializeSharedPreferences() {
@@ -182,5 +199,6 @@ class DashBoardActivity : AppCompatActivity() {
     companion object {
         const val NUMBER_OF_ROWS = 2
     }
+
 
 }

@@ -112,6 +112,9 @@ class DeliveryFragment : Fragment() {
             showAddresses()
             dialog.dismiss()
         }
+        dialogBinding.btnCancelAddress.setOnClickListener {
+            dialog.dismiss()
+        }
     }
 
     fun saveAddress(userAddress: UserAddress) {

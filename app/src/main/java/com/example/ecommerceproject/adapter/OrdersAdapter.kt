@@ -25,4 +25,10 @@ class OrdersAdapter(val listOrders: MutableList<Product>) :
     }
 
     override fun getItemCount(): Int = listOrders.size
+
+    fun submitList(newData: List<Product>) {
+        listOrders.clear()
+        listOrders.addAll(newData)
+        notifyDataSetChanged()
+    }
 }

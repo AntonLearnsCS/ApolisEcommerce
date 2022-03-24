@@ -7,24 +7,25 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-class RemoteRepository (val ecommerceAccessObject: EcommerceApiAccessObject) {
+class RemoteRepository(private val ecommerceAccessObject: EcommerceApiAccessObject) {
 
-    fun getCategories(): Call<ProductCategoriesResponse>{
+    fun getCategories(): Call<ProductCategoriesResponse> {
         return ecommerceAccessObject.retrofitDisplayProducts.getCategories()
     }
 
-
-    fun getSubCategory(): Call<SubCategoriesResponse>{
-
+    fun getSubCategoryItems(subcategoryId : String) : Call<SubCategoryProductResponse>{
+        return ecommerceAccessObject.retrofitDisplayProducts.getSubCategoryItems(subcategoryId)
     }
 
-    @GET("SubCategory/products/{sub_category_id}")
-    fun getSubCategoryItems(@Path("sub_category_id") subCategoryId: String) : Call<SubCategoryProductResponse>
+    fun getSubCategory(id: String): Call<SubCategoriesResponse> {
+        return ecommerceAccessObject.retrofitDisplayProducts.getSubCategory(id)
+    }
 
-    @GET("Product/details/{product_id}")
-    fun getProductDetail(@Path("product_id") productId : String) : Call<ProductDetailResponse>
+    fun getProductDetail(productId: String): Call<ProductDetailResponse> {
+        return ecommerceAccessObject.retrofitDisplayProducts.getProductDetail(productId)
+    }
 
-    @GET("Product/search")
-    fun searchProduct(@Query("query") searchText : String) : Call<SearchProductResponse>
-
+    fun searchProduct(query: String): Call<SearchProductResponse> {
+        return ecommerceAccessObject.retrofitDisplayProducts.searchProduct(query)
+    }
 }

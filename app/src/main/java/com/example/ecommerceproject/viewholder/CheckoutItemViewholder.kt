@@ -11,6 +11,7 @@ class CheckoutItemViewholder(val binding : CheckoutItemViewHolderBinding) : Recy
 
     fun bind(product : Product){
         val price = "$${product.price}"
+        binding.tvCheckoutItemQuantity.text = product.quantity.toString()
         binding.tvCheckoutItemPrice.text = price
         binding.tvCheckoutItemTitle.text = product.product_name
         binding.tvCheckoutDetail.text = product.description

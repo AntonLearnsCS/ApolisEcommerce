@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
@@ -19,6 +21,7 @@ import kotlinx.coroutines.runBlocking
 class OrdersFragment : Fragment() {
     private lateinit var binding : FragmentOrdersBinding
     private lateinit var adapter : OrdersAdapter
+    private lateinit var viewModel : NavigationSharedViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,7 +29,7 @@ class OrdersFragment : Fragment() {
     ): View? {
         binding = FragmentOrdersBinding.inflate(layoutInflater, container, false)
 
-
+        viewModel = ViewModelProvider(requireActivity()).get(NavigationSharedViewModel::class.java)
         loadOrders(binding.root.context)
         return binding.root
     }
@@ -40,16 +43,15 @@ class OrdersFragment : Fragment() {
 
         val currentUserId : String? = sPref.getString("currentUserId","0")
 
-        val ecommerceDatabase = EcommerceDatabase.getInstance(context)
-
         currentUserId?.let {
-            val pastOrders = mutableListOf<Product>()
-            pastOrders.addAll(ecommerceDatabase.ecommerceDao.getOrderedProducts(it))
-
-            adapter = OrdersAdapter(pastOrders)
+            adapter = OrdersAdapter(mutableListOf<Product>())
             binding.rvListOrders.itemAnimator = null
             binding.rvListOrders.layoutManager = LinearLayoutManager(context)
             binding.rvListOrders.adapter = adapter
+
+            viewModel.pastOrders.observe(viewLifecycleOwner, Observer {
+                adapter.submitList(it)
+            })
         }
     }
 

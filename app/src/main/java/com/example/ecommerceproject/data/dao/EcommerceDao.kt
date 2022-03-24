@@ -1,5 +1,6 @@
 package com.example.ecommerceproject.data.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
 import com.example.ecommerceproject.data.*
@@ -14,10 +15,10 @@ interface EcommerceDao {
     fun removeProduct(id : Int, productName : String)
 
     @Query("SELECT * FROM Product WHERE user_id = :userId AND is_purchased = 0")
-    fun getCartProducts(userId : String) : List<Product>
+    fun getCartProducts(userId : String) : LiveData<List<Product>>
 
     @Query("SELECT * FROM Product WHERE user_id = :userId AND is_purchased = 1")
-    fun getOrderedProducts(userId : String) : List<Product>
+    fun getOrderedProducts(userId : String) : LiveData<List<Product>>
 
     @Insert(onConflict = REPLACE)
     fun saveOrderedProduct(product: Product)
